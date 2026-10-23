@@ -1,0 +1,22 @@
+name: Rust
+on: [push, pull_request]
+jobs:
+  check:
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          components: rustfmt, clippy
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: cargo fmt --check
+      - run: cargo build --locked
+      - run: cargo test --locked
+      - run: python3 tests/terminal_flow.py
+      - run: python3 tests/session_controls.py
+      - run: cargo clippy --locked --all-targets -- -D warnings

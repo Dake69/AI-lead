@@ -1,0 +1,2 @@
+# Verification
+Inspect the actual diff and affected behavior. Run the project's relevant checks. Include commands, exit status and failure evidence in reports. Distinguish executed checks from proposed checks. Avoid tests that merely mirror implementation.

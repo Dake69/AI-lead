@@ -1,0 +1,23 @@
+
+ AI LEAD    demo    Complete    round 2/12    8 reports / 26 messages
+ 00:02 · 55 events · VIEW PAUSED · Создать приложение с авторизацией и кабинет…
+ 0/6 specialists active
+  lead / Approved · 14 ────────────────────────────────────────────────────────
+  called and no real checks were run.
+  DEMO complete. Reports, peer messages and memory were saved. No provider was
+  called and no real checks were run.
+
+  designer / Ready · 13 ───────────────   frontend / Ready · 9 ────────────────
+  backend: coordinate acceptance          review/test receipt does not cover
+  criteria before implementation.         subsequent edits.
+
+  backend / Ready · 8 ─────────────────   architect / Ready · 8 ───────────────
+  review/test receipt does not cover      review/test receipt does not cover
+  subsequent edits.                       subsequent edits.
+
+  tester / Ready · 16 ─────────────────   reviewer / Ready · 16 ───────────────
+  earlier review/test receipt does not    earlier review/test receipt does not
+  cover subsequent edits.                 cover subsequent edits.
+ i Message to lead  ·  Settings closed · no changes
+ F2 Model / provider: backend  ·  Tab / ↑↓ agent  ·  Enter expand
+ 1 logs  2 tasks  3 profile  4 memory  p pause  ? help  q exit

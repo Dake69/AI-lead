@@ -1,0 +1,19 @@
+
+ AI LEAD    demo    Complete    round 2/12    8 reports / 2
+ 00:02 · 55 events · VIEW PAUSED · Создать приложение с ав…
+ 0/6 specialists active
+  lead / Approved · 14 ────────────────────────────────────
+  DEMO complete. Reports, peer messages and memory were
+  saved. No provider was called and no real checks were
+  run.
+
+  designer / Ready · 13 ─────   frontend / Ready · 9 ──────
+  implementation.               subsequent edits.
+
+  backend / Ready · 8 ───────   architect / Ready · 8 ─────
+
+  tester / Ready · 16 ───────   reviewer / Ready · 16 ─────
+  subsequent edits.             subsequent edits.
+ i Message to lead  ·  Settings closed · no changes
+ F2 Model / provider: backend  ·  Tab / ↑↓ agent  ·  Enter…
+ 1 logs  2 tasks  3 profile  4 memory  p pause  ? help  q e

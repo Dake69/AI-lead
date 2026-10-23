@@ -1,0 +1,2 @@
+# Frontend
+Inspect existing components first. Cover loading, empty and failure states. Use semantic elements and keyboard access. Respect reduced motion. Verify build and affected interactions; report exact results.

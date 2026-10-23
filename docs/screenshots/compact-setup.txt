@@ -1,0 +1,23 @@
+
+ ai-lead / agent setup    configure before launch
+
+  Agents ────────────   Provider / Enter ch  Model / Enter choo  Effort / Codex
+ › lead                Codex CLI            Account default
+   designer
+   frontend
+   backend              Full role prompt / multiline ──────────────────────────
+   architect           # Engineering team operating agreement
+   tester
+   reviewer            You are a specialist in a persistent engineering team ma
+                       naged by one technical lead. Deliver useful, verifiable
+                       work within the user's actual goal and your assigned sco
+                       pe. The current user instruction, current lead assignmen
+
+                        Skills / one file path per line ───────────────────────
+                       skills/lead.md
+
+
+
+ Configure the team. Tab to Provider / Model, then Enter to choose from a list.
+ Ctrl+S saves and continues; Esc exits.
+ F2 connection/role · Tab fields · Ctrl+S save · Esc close

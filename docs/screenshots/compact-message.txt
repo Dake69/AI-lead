@@ -1,0 +1,23 @@
+
+ AI LEAD    demo    Complete    round 2/12    8 reports / 26 messages
+ 00:02 · 55 events · Создать приложение с авторизацией и кабинетом
+ 0/6 specialists active
+  lead / Approved · 14 ────────────────────────────────────────────────────────
+  called and no real checks were run.
+  ┌ Message to lead ─────────────────────────────────────────────────────────┐
+  │ Добавь поиск и фильтры по товарам.                                       │
+  │                                                                          │
+  │                                                                          │─
+  │                                                                          │
+  │                                                                          │
+  │                                                                          │
+  │ Enter send  ·  Ctrl+J new line  ·  Esc keep draft                        │─
+  │ Saved input reaches the lead at the next planning turn.                  │
+  │                                                                          │
+  └──────────────────────────────────────────────────────────────────────────┘
+  tester / Ready · 16 ─────────────────   reviewer / Ready · 16 ───────────────
+  earlier review/test receipt does not    earlier review/test receipt does not
+  cover subsequent edits.                 cover subsequent edits.
+ i Message to lead  ·  send a follow-up while agents work or after completion
+ F2 Model / provider: lead  ·  Tab / ↑↓ agent  ·  Enter expand
+ 1 logs  2 tasks  3 profile  4 memory  p pause  ? help  q exit

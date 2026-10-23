@@ -1,0 +1,19 @@
+
+  FULL ACCESS / consent for every agent
+
+  /private/var/folders/m0/2p4807m12qv4sg3mtd63h7bh0000gn/T
+  /ai-lead-consent-c67_a8gj
+
+  ALL agents, including the lead, can:
+  - Run shell commands, install software, use network.
+  - Read/change/delete files outside this project.
+  - Use your account's available credentials.
+  - Work without sandbox or permission prompts.
+  OS/provider limits apply; no automatic root/admin.
+
+  Saved for this project; applies to your task.
+  Revoke: ai-lead permissions restricted (or F5).
+
+  Type ALLOW + Enter to authorize · Esc cancels
+
+  ›

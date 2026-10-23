@@ -1,0 +1,23 @@
+
+ a┌ Choose provider ─────────────────────────────────────────────────────────┐
+  │                                                                          │
+  │ Connection presets · no provider ID needed                               │─
+  │ Search:                                                                  │
+  │                                                                          │
+  │ › Codex CLI                                                              │
+  │   Use the installed CLI and its signed-in account                        │─
+  │   Claude Code                                                            │
+  │   Use the installed CLI and its signed-in account                        │
+ ›│   OpenAI API                                                             │
+  │   Direct API connection · key: OPENAI_API_KEY                            │─
+  │   Anthropic API                                                          │
+  │   Direct API connection · key: ANTHROPIC_API_KEY                         │
+  │   Gemini                                                                 │
+  │   Direct API connection · key: GEMINI_API_KEY                            │
+  │                                                                          │
+  │                                                                          │
+  │                                                                          │
+  │ 11 / 11 choices · type to search · ↑↓ select                             │
+ E│ Enter choose · Esc back                                                  │
+ C│                                                                          │
+ A└──────────────────────────────────────────────────────────────────────────┘

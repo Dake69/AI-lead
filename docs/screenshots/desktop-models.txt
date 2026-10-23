@@ -1,0 +1,39 @@
+
+ ai-lead / agent setup    models / providers · next invocation
+
+  Agents ────────────   Provider / Enter choose ───────────────────────────────────────────────────────────────────────
+   lead                Codex CLI
+   Account default
+   designer  ┌ Choose model ──────────────────────────────────────────────────────────────────────────────┐
+   Account de│                                                                                            │────────────
+   frontend  │ Live Codex CLI catalog                                                                     │
+   Account de│ Search:                                                                                    │
+ › backend   │                                                                                            │
+   Account de│ › Default for your account                                                                 │────────────
+   architect │   Let the installed CLI choose its configured model                                        │
+   Account de│   GPT-6.1-Sol · recommended default                                                        │
+   tester    │   Latest workhorse model for coding and everyday work.                                     │
+   Account de│   GPT-6-Astra                                                                              │
+   reviewer  │   Frontier intelligence for the most demanding work.                                       │
+   Account de│   GPT-6-Sol                                                                                │
+             │   Previous generation workhorse model.                                                     │
+             │   GPT-6-Luna                                                                               │
+             │   Fast and affordable model for easier tasks.                                              │
+             │   GPT-5.6-Sol                                                                              │
+             │   Older generation workhorse model.                                                        │
+             │   GPT-5.6-Terra                                                                            │
+             │   Older balanced model for straightforward work.                                           │
+             │                                                                                            │
+             │ Reported by the installed CLI. Availability depends on your account and provider.          │
+             │                                                                                            │
+             │                                                                                            │
+             │ 8 / 8 choices · type to search · ↑↓ select                                                 │
+             │ Enter choose · Esc back · Tab providers · Ctrl+R refresh                                   │
+             │                                                                                            │
+             └────────────────────────────────────────────────────────────────────────────────────────────┘
+
+
+
+ Enter chooses provider/model from a searchable list. Alt+↑↓ changes agent. Ctrl+S saves; Esc returns to logs.
+
+ Alt+↑↓ agent · Tab fields · F2 API · F3 roles · Ctrl+S save · Esc back

@@ -1,0 +1,23 @@
+
+ a┌ Choose model ────────────────────────────────────────────────────────────┐
+  │                                                                          │
+  │ Live Codex CLI catalog                                                   │─
+  │ Search:                                                                  │
+  │                                                                          │
+  │ › Default for your account                                               │
+  │   Let the installed CLI choose its configured model                      │─
+  │   GPT-6.1-Sol · recommended default                                      │
+  │   Latest workhorse model for coding and everyday work.                   │
+ ›│   GPT-6-Astra                                                            │
+  │   Frontier intelligence for the most demanding work.                     │─
+  │   GPT-6-Sol                                                              │
+  │   Previous generation workhorse model.                                   │
+  │   GPT-6-Luna                                                             │
+  │   Fast and affordable model for easier tasks.                            │
+  │ Reported by the installed CLI. Availability depends on your account and  │
+  │ provider.                                                                │
+  │                                                                          │
+  │ 8 / 8 choices · type to search · ↑↓ select                               │
+ E│ Enter choose · Esc back · Tab providers · Ctrl+R refresh                 │
+ C│                                                                          │
+ A└──────────────────────────────────────────────────────────────────────────┘

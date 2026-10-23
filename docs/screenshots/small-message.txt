@@ -1,0 +1,19 @@
+
+ AI LEAD    demo    Complete    round 2/12    8 reports / 2
+ 00:02 · 55 events · Создать приложение с авторизацией и к…
+ 0/6 specialists active
+  ┌ Message to lead ─────────────────────────────────────┐─
+  │ Добавь поиск и фильтры по товарам.                   │
+  │                                                      │
+  │                                                      │
+  │                                                      │
+  │                                                      │─
+  │                                                      │
+  │ Enter send  ·  Ctrl+J new line  ·  Esc keep draft    │
+  │ Saved input reaches the lead at the next planning tu │─
+  │                                                      │
+  └──────────────────────────────────────────────────────┘─
+  subsequent edits.             subsequent edits.
+ i Message to lead  ·  send a follow-up while agents work …
+ F2 Model / provider: lead  ·  Tab / ↑↓ agent  ·  Enter ex…
+ 1 logs  2 tasks  3 profile  4 memory  p pause  ? help  q e

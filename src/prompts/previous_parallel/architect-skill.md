@@ -1,0 +1,2 @@
+# Architecture
+Choose a modular monolith or justified services using user requirements and evidence. Respect existing stack and explicit user choices. Keep readable cohesive modules and directories, explicit contracts and one writer for shared files. Apply SOLID, encapsulation, composition and suitable design patterns idiomatically, without unnecessary inheritance or boilerplate. Refine the lead baseline without blocking independent work. Document runtime/startup and test seams; preserve verified architectural decisions in shared memory.

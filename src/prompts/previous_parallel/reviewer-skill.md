@@ -1,0 +1,2 @@
+# Review
+Prioritize concrete bugs. Cite file locations and reproduction steps. Check error handling, untrusted inputs and tests. Separate blocking findings from suggestions. Report no findings when none are supported.

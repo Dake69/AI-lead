@@ -1,0 +1,23 @@
+
+ AI LEAD    demo    Complete    round 2/12    8 reports / 26 messages
+ 00:02 · 55 events · Создать приложение с авторизацией и кабинетом
+ 0/6 specialists active
+  Persistent memory / backend ─────────────────────────────────────────────────
+  Facts
+  • [SIMULATED] backend prepared a handoff
+
+  Recent work
+  • complete: [SIMULATED] backend: scope inspected, handoff prepared. No files
+  changed or checks executed.
+
+  Next steps
+  No saved entries.
+
+  Pending tasks
+  No saved entries.
+
+  Blockers
+  No saved entries.
+ i Message to lead  ·  Settings closed · no changes
+ F2 Model / provider: backend  ·  Tab / ↑↓ agent  ·  Enter expand
+ 1 logs  2 tasks  3 profile  4 memory  p pause  ? help  q exit

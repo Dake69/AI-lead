@@ -1,0 +1,39 @@
+
+ AI LEAD    demo    Running    round 1/12    1 reports / 4 messages
+ 00:00 · 13 events · Создать приложение с авторизацией и кабинетом
+ 2/6 specialists active · tester, reviewer
+  lead / Waiting · 4 ──────────────────────────────────────────────────────────────────────────────────────────────────
+  task: Planning next action from persistent team memory
+  DEMO: prepare the team and coordinate design, implementation, testing and review.
+  ▁▁▁▁▁▁▁▁▁▁▁▅  Codex CLI / default
+
+
+
+
+  designer / Idle · 2 ─────────────────────────────────────   frontend / Idle · 0 ─────────────────────────────────────
+  inspect actual files and send findings live.                Waiting for an assignment.
+  → reviewer: Task started: Inspect the designer scope and    ▁▁▁▁▁▁▁▁▁▁▁▁  Codex CLI / default
+  report acceptance criteria for the goal.. Inspectable
+  scope: ["demo/designer"]. Implementation may be partial;
+  inspect actual files and send findings live.
+  ▁▁▁▁▁▁▁▁▁▁▁▃  Codex CLI / default
+
+  backend / Idle · 0 ──────────────────────────────────────   architect / Idle · 0 ────────────────────────────────────
+  Waiting for an assignment.                                  Waiting for an assignment.
+  ▁▁▁▁▁▁▁▁▁▁▁▁  Codex CLI / default                           ▁▁▁▁▁▁▁▁▁▁▁▁  Codex CLI / default
+
+
+
+
+
+
+  ⠸ tester / Working · 0s · 4 ─────────────────────────────   ⠸ reviewer / Working · 0s · 4 ───────────────────────────
+  criteria for the goal.                                      inspect actual files and send findings live.
+  designer → Task started: Inspect the designer scope and     designer → Task started: Inspect the designer scope and
+  report acceptance criteria for the goal.. Inspectable       report acceptance criteria for the goal.. Inspectable
+  scope: ["demo/designer"]. Implementation may be partial;    scope: ["demo/designer"]. Implementation may be partial;
+  inspect actual files and send findings live.                inspect actual files and send findings live.
+  ▁▁▁▁▁▁▁▁▁▁▁▅  Codex CLI / default                           ▁▁▁▁▁▁▁▁▁▁▁▅  Codex CLI / default
+ i Message to lead  ·  send a follow-up while agents work or after completion
+ F2 Model / provider: lead  ·  Tab / ↑↓ agent  ·  Enter expand
+ 1 logs  2 tasks  3 profile  4 memory  p pause  ? help  q exit

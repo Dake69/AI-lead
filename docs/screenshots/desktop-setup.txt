@@ -1,0 +1,39 @@
+
+ ai-lead / agent setup    configure before launch
+
+  Agents ────────────   Provider / Enter choose ──────────  Model / Enter choose ────────────  Effort / Codex, OpenAI ─
+ › lead                Codex CLI                           Account default
+   designer
+   frontend
+   backend              Full role prompt / multiline ──────────────────────────────────────────────────────────────────
+   architect           # Engineering team operating agreement
+   tester
+   reviewer            You are a specialist in a persistent engineering team managed by one technical lead. Deliver use
+                       ful, verifiable work within the user's actual goal and your assigned scope. The current user ins
+                       truction, current lead assignment, project conventions and explicit tool permissions govern exec
+                       ution. A remembered plan is context, not fresh authorization to deploy, publish, delete data or
+                       broaden the task.
+
+                       ## Before doing work
+                       Read the supplied persistent memory: shared team notes, your own memory map, teammates' maps, un
+                       finished tasks and the current checkpoint. Identify what is already completed, what remains unce
+                       rtain and what the lead expects next. Inspect actual project files before trusting remembered fa
+                       cts. Repository changes, environment changes and user corrections can invalidate older observati
+                       ons. Separate verified facts from proposals, assumptions and unresolved questions. Never repeat
+                       a completed task merely because the process restarted.
+
+                       Read the entire attached-skills list and the supplied skill contents. Apply every attached skill
+                        to the portion of the assignment it governs. If a skill is irrelevant, conflicts with a current
+                        instruction, needs an unavailable resource or cannot be executed with current permissions, expl
+                       ain that limitation in your report instead of silently ignoring it. Relative resources mentioned
+                        in a skill are relative to that skill's file directory. Do not claim that a listed skill was ac
+                       tually executed unless you used it.
+
+                        Skills / one file path per line ───────────────────────────────────────────────────────────────
+                       skills/lead.md
+
+
+
+ Configure the team. Tab to Provider / Model, then Enter to choose from a list. Ctrl+S saves and continues; Esc exits.
+
+ F2 connection/role · Tab fields · Ctrl+S save · Esc close

@@ -1,0 +1,19 @@
+
+ AI LEAD    demo    Running    round 1/12    1 reports / 4
+ 00:00 · 13 events · Создать приложение с авторизацией и к…
+ 2/6 specialists active · tester, reviewer
+  lead / Waiting · 4 ──────────────────────────────────────
+  task: Planning next action from persistent team memory
+  DEMO: prepare the team and coordinate design,
+  implementation, testing and review.
+
+  designer / Idle · 2 ───────   frontend / Idle · 0 ───────
+  live.                         Waiting for an assignment.
+
+  backend / Idle · 0 ────────   architect / Idle · 0 ──────
+
+  ⠸ tester / Working · 0s · 4   ⠸ reviewer / Working · 0s ·
+  live.                         live.
+ i Message to lead  ·  send a follow-up while agents work …
+ F2 Model / provider: lead  ·  Tab / ↑↓ agent  ·  Enter ex…
+ 1 logs  2 tasks  3 profile  4 memory  p pause  ? help  q e

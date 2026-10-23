@@ -1,0 +1,39 @@
+
+ ai-lead / agent setup    models / providers · next invocation
+
+  Agents ────────────   Provider / Enter choose ───────────────────────────────────────────────────────────────────────
+   lead                Codex CLI
+   Account default
+   designer  ┌ Choose provider ───────────────────────────────────────────────────────────────────────────┐
+   Account de│                                                                                            │────────────
+   frontend  │ Connection presets · no provider ID needed                                                 │
+   Account de│ Search:                                                                                    │
+ › backend   │                                                                                            │
+   Account de│ › Codex CLI                                                                                │────────────
+   architect │   Use the installed CLI and its signed-in account                                          │
+   Account de│   Claude Code                                                                              │
+   tester    │   Use the installed CLI and its signed-in account                                          │
+   Account de│   OpenAI API                                                                               │
+   reviewer  │   Direct API connection · key: OPENAI_API_KEY                                              │
+   Account de│   Anthropic API                                                                            │
+             │   Direct API connection · key: ANTHROPIC_API_KEY                                           │
+             │   Gemini                                                                                   │
+             │   Direct API connection · key: GEMINI_API_KEY                                              │
+             │   OpenRouter                                                                               │
+             │   Direct API connection · key: OPENROUTER_API_KEY                                          │
+             │   DeepSeek                                                                                 │
+             │   Direct API connection · key: DEEPSEEK_API_KEY                                            │
+             │                                                                                            │
+             │                                                                                            │
+             │                                                                                            │
+             │                                                                                            │
+             │ 11 / 11 choices · type to search · ↑↓ select                                               │
+             │ Enter choose · Esc back                                                                    │
+             │                                                                                            │
+             └────────────────────────────────────────────────────────────────────────────────────────────┘
+
+
+
+ Enter chooses provider/model from a searchable list. Alt+↑↓ changes agent. Ctrl+S saves; Esc returns to logs.
+
+ Alt+↑↓ agent · Tab fields · F2 API · F3 roles · Ctrl+S save · Esc back

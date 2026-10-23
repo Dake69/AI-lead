@@ -1,0 +1,19 @@
+
+ ai-lead / agent setup    configure before launch
+
+  Agents ────────────   Provider /   Model ID ───  Effort ─
+ › lead                OpenAI API   my-api-model-
+   designer                         id
+   frontend             Base URL / blank: https://api.opena
+   backend
+   devops
+   tester               Key ENV / OPENAI_AP  Tokens  Turns/
+   reviewer            MY_OPENAI_KEY        4096    20
+
+                       API preset: OpenAI API
+                       https://api.openai.com/v1
+                       Key variable: OPENAI_API_KEY
+                       Enter the environment variable NAME,
+ Saved. These prompts and skills will be used on the next
+ run.
+ F2 connection/role · Tab fields · Ctrl+S save · Esc close

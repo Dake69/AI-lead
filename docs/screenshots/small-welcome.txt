@@ -1,0 +1,18 @@
+
+   AI LEAD / new session
+   /private/var/folders/m0/2p4807m12qv4sg3mtd63h7bh0000g…
+
+   Agent          Provider   Model                    Ski
+
+   lead           Codex CLI  CLI default              1
+   designer       Codex CLI  CLI default              1
+   frontend       Codex CLI  CLI default              1
+   backend        Codex CLI  CLI default              1
+   architect      Codex CLI  CLI default              1
+   tester         Codex CLI  CLI default              1
+   F3 Configure team · F5 Full access / Restricted
+   Full prompts, skill files, provider, model and reasoni
+
+    Task ────────────────────────────────────────────────
+    › Describe your task…
+   Enter start   F2 mode   F3 setup   F4 resume   Esc exi

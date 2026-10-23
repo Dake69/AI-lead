@@ -1,0 +1,39 @@
+
+ AI LEAD    demo    Complete    round 2/12    8 reports / 26 messages
+ 00:02 · 55 events · Создать приложение с авторизацией и кабинетом
+ 0/6 specialists active
+  lead / Approved · 14 ────────────────────────────────────────────────────────────────────────────────────────────────
+  architect → [SIMULATED] architect: scope inspected, handoff prepared. No files changed or checks executed.
+  backend → [SIMULATED] backend: scope inspected, handoff prepared. No files changed or checks executed.
+  task: Planning next action from persistent team memory
+  DEMO complete. Reports, peer messages and memory were saved. No provider was called and no real checks were run.
+  DEMO complete. Reports, peer messages and memory were saved. No provider was called and no real checks were run.
+  ▁▁▁▁▁▁▁▁▁▅▄█  Codex CLI / default
+
+  designer / Ready · 13 ───────────────────────────────────   frontend / Ready · 9 ────────────────────────────────────
+  acceptance criteria before implementation.                  and report acceptance criteria for the goal..
+  architect → [┌ Message to lead ───────────────────────────────────────────────────────────────────────┐off prepared.
+  coordinate ac│ Добавь поиск и фильтры по товарам.                                                     │ct current
+  backend → [SI│                                                                                        │not cover
+  acceptance cr│                                                                                        │
+  ▁▁▁▁▁▁▁▁▁▄█▄ │                                                                                        │
+               │                                                                                        │
+  backend / Rea│                                                                                        │──────────────
+  → reviewer: T│ Enter send  ·  Ctrl+J new line  ·  Esc keep draft                                      │itect scope
+  report accept│ Saved input reaches the lead at the next planning turn.                                │..
+  backend: scop│                                                                                        │doff
+  changed or ch└────────────────────────────────────────────────────────────────────────────────────────┘ed.. Inspect
+  earlier review/test receipt does not cover subsequent       current files; an earlier review/test receipt does not
+  edits.                                                      cover subsequent edits.
+  ▁▁▁▁▁▁▁▁▁▄▁▆  Codex CLI / default                           ▁▁▁▁▁▁▁▁▁▄▁▆  Codex CLI / default
+
+  tester / Ready · 16 ─────────────────────────────────────   reviewer / Ready · 16 ───────────────────────────────────
+  report acceptance criteria for the goal.. [SIMULATED]       report acceptance criteria for the goal.. [SIMULATED]
+  backend: scope inspected, handoff prepared. No files        backend: scope inspected, handoff prepared. No files
+  changed or checks executed.. Inspect current files; an      changed or checks executed.. Inspect current files; an
+  earlier review/test receipt does not cover subsequent       earlier review/test receipt does not cover subsequent
+  edits.                                                      edits.
+  ▁▁▁▁▁▁▁▁▁█▇▄  Codex CLI / default                           ▁▁▁▁▁▁▁▁▁█▇▄  Codex CLI / default
+ i Message to lead  ·  send a follow-up while agents work or after completion
+ F2 Model / provider: lead  ·  Tab / ↑↓ agent  ·  Enter expand
+ 1 logs  2 tasks  3 profile  4 memory  p pause  ? help  q exit

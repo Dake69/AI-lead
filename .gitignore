@@ -1,0 +1,11 @@
+/target/
+# Project-local setup, prompts, memories, session logs and consent.
+/.ai-lead/
+
+# Local credentials and machine-generated files.
+.env
+.env.*
+!.env.example
+.DS_Store
+__pycache__/
+*.pyc

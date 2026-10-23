@@ -1,0 +1,19 @@
+
+   AI LEAD / configure this project
+
+   /private/var/folders/m0/2p4807m12qv4sg3mtd63h7bh0000gn
+   /T/ai-lead-project-m04gdwwy
+
+   Set up a lead and six specialists for this directory.
+   Choose providers, models, prompts and skills.
+
+   Files stay inside this project:
+     .ai-lead/team.toml       team settings
+     .ai-lead/contexts/       role prompts
+     .ai-lead/skills/         attached skills
+     .ai-lead/memory/         team memory
+     .ai-lead/runs/           session logs
+
+   Ctrl+S in setup saves and opens task entry.
+
+   Enter  Configure this directory     Esc  Exit
