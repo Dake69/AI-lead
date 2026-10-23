@@ -1,73 +1,73 @@
 # AI-lead
 
-**Команда AI-агентов под управлением одного лида — прямо в терминале.**
+**A team of AI agents, coordinated by one lead — right in your terminal.**
 
-AI-lead — CLI на Rust с полноэкранным терминальным интерфейсом. Ты открываешь его в папке своего проекта, подключаешь Codex, Claude Code или API, выбираешь модели и описываешь задачу. Лид распределяет работу между специалистами, координирует их и получает результаты. Логи всех агентов видны на одном экране.
+AI-lead is a Rust CLI with a full-screen terminal interface. Open it in your project directory, connect Codex, Claude Code, or an API provider, choose your models, and describe the task. The lead assigns work to specialists, coordinates their communication, and collects results. You can watch every agent's logs on one screen.
 
-Для каждого агента можно отдельно выбрать модель, провайдера, уровень reasoning, базовый промпт и навыки. Независимые задания выполняются параллельно. Общая память, личные карты агентов и контрольные точки сохраняются в проекте между запусками.
+Each agent can have its own model, provider, reasoning level, base prompt, and skills. Independent assignments run in parallel. Shared memory, individual agent memory maps, and checkpoints stay in the project between sessions.
 
-![Логи команды в терминале](docs/screenshots/desktop-team.png)
+![Team logs in the terminal](docs/screenshots/desktop-team.png)
 
-Скриншот показывает демонстрационную сессию. Demo не вызывает модели для выполнения задач и не пишет код проекта. Открытый отдельно каталог моделей может получать метаданные от CLI или API.
+This screenshot shows a demo session. Demo does not call models to execute tasks or write project code. Opening the separate model catalog may retrieve metadata from a CLI or API.
 
-[Анимация терминального демо](docs/screenshots/live-team.gif) · [Выбор модели](docs/screenshots/desktop-models.png) · [Выбор провайдера](docs/screenshots/desktop-providers.png) · [Сообщение лиду](docs/screenshots/desktop-message.png)
+[Terminal demo animation](docs/screenshots/live-team.gif) · [Model picker](docs/screenshots/desktop-models.png) · [Provider picker](docs/screenshots/desktop-providers.png) · [Message the lead](docs/screenshots/desktop-message.png)
 
-## Содержание
+## Contents
 
-- [Что умеет AI-lead](#features)
-- [Требования](#requirements)
-- [Установка](#installation)
-- [Первый запуск](#first-run)
-- [Выбор моделей и провайдеров](#models)
-- [Кто за что отвечает](#roles)
-- [Как выполняется задача](#workflow)
-- [Управление интерфейсом](#interface)
-- [Следующие сообщения лиду](#messages)
-- [Свои промпты и навыки](#customization)
-- [Память и продолжение работы](#memory)
-- [Разрешения и Full access](#permissions)
-- [Команды CLI](#commands)
-- [Настройки и файлы проекта](#configuration)
-- [Частые вопросы и ошибки](#troubleshooting)
-- [Разработка и проверка](#development)
-- [Текущие ограничения](#limitations)
+- [Features](#features)
+- [Requirements](#requirements)
+- [Installation](#installation)
+- [First run](#first-run)
+- [Choosing models and providers](#models)
+- [Agent roles](#roles)
+- [How a task runs](#workflow)
+- [Terminal controls](#interface)
+- [Follow-up messages](#messages)
+- [Custom prompts and skills](#customization)
+- [Memory and resuming work](#memory)
+- [Permissions and Full access](#permissions)
+- [CLI commands](#commands)
+- [Configuration and project files](#configuration)
+- [Troubleshooting](#troubleshooting)
+- [Development and verification](#development)
+- [Current limitations](#limitations)
 
 <a id="features"></a>
-## Что умеет AI-lead
+## Features
 
-- Собирает команду из лида и шести специалистов: архитектора, дизайнера, фронтендера, бэкендера, тестировщика и ревьювера.
-- Позволяет смешивать Codex CLI, Claude Code и API в одной команде.
-- Показывает каталог моделей с понятными названиями, описаниями и поиском. Знать технические ID для обычной настройки не нужно.
-- Запускает независимые задания параллельно, учитывая зависимости и владельцев файлов.
-- Передаёт сообщения между агентами во время работы; лид получает копии их живых handoff-сообщений.
-- Принимает дополнительные сообщения пользователя во время выполнения и после завершения задачи.
-- Позволяет менять модели и настройки в открытой сессии. Уже начавшиеся вызовы продолжаются, следующие используют сохранённый выбор.
-- Сохраняет общую память, личные карты агентов, задания, отчёты и журналы сессий.
-- Продолжает незавершённую работу через `resume`, сохраняя подтверждённые результаты.
-- Работает в Demo, режиме чтения, Restricted с записью и Full access с явным согласием пользователя.
+- Creates a team with one lead and six specialists: architect, designer, frontend engineer, backend engineer, tester, and reviewer.
+- Lets you mix Codex CLI, Claude Code, and direct API connections within the same team.
+- Provides a searchable model catalog with readable names and descriptions. You do not need technical model IDs for normal setup.
+- Runs independent assignments in parallel while respecting dependencies and file ownership.
+- Routes messages between agents during execution; the lead receives copies of their live handoff messages.
+- Accepts additional user instructions while work is running and after a task has finished.
+- Lets you change models and settings in an open session. Existing calls continue; subsequent calls use the saved settings.
+- Saves shared memory, individual agent maps, assignments, reports, and session logs.
+- Resumes unfinished work through `resume`, preserving acknowledged results.
+- Supports Demo, read-only execution, Restricted execution with writes, and Full access with explicit user consent.
 
-AI-lead управляет подключёнными моделями и инструментами. Качество результата зависит от моделей, контекста, доступных инструментов и условий задачи.
+AI-lead orchestrates the models and tools you connect. Results depend on the models, context, available tools, and task requirements.
 
 <a id="requirements"></a>
-## Требования
+## Requirements
 
-| Что нужно | Для чего |
+| Requirement | Purpose |
 |---|---|
-| Rust **1.89+** и Cargo | Сборка и установка AI-lead |
-| Git | Получение исходников |
-| Терминал от **60 × 20** | Полноэкранный интерфейс; удобнее **120 × 40** |
-| Codex CLI и/или Claude Code | Если используешь подключение через установленного агента |
-| API-ключ нужного сервиса | Если используешь прямое API-подключение |
-| Python **3.11+** | Только для разработки и терминальных тестов |
+| Rust **1.89+** and Cargo | Building and installing AI-lead |
+| Git | Downloading the source |
+| A terminal of at least **60 × 20** | Full-screen interface; **120 × 40** is more comfortable |
+| Codex CLI and/or Claude Code | Connections through an installed coding agent |
+| An API key for your chosen service | Direct API connections |
+| Python **3.11+** | Development and terminal tests only |
 
-Основная локальная проверка выполнялась на macOS. CI настроен для Linux и macOS. На Windows есть ограничения остановки дерева дочерних процессов; терминальные тесты в репозитории рассчитаны на POSIX.
+Primary local verification has been performed on macOS. CI is configured for Linux and macOS. Windows has limitations around stopping descendant processes; the repository's terminal tests require POSIX.
 
-Необязательно устанавливать одновременно Codex и Claude. Можно использовать только один CLI, только API или смешанную команду. Для знакомства с интерфейсом достаточно Demo.
+You do not need both Codex and Claude installed. Use one CLI, API-only connections, or a mixed team. Demo is enough to explore the interface.
 
 <a id="installation"></a>
-## Установка
+## Installation
 
-### Из исходников
+### From source
 
 ```bash
 git clone https://github.com/Dake69/AI-lead.git
@@ -75,47 +75,47 @@ cd AI-lead
 cargo install --path . --locked
 ```
 
-После установки команда называется **`ai-lead`**. Её можно запускать из любой папки:
+The installed command is **`ai-lead`**. Run it from any directory:
 
 ```bash
 cd /path/to/my-project
 ai-lead
 ```
 
-Можно установить сразу из GitHub:
+You can also install directly from GitHub:
 
 ```bash
 cargo install --git https://github.com/Dake69/AI-lead.git --branch main --locked
 ```
 
-### Если терминал не находит команду
+### If the command is not found
 
-Cargo обычно устанавливает бинарники в `~/.cargo/bin`. Добавь эту папку в `PATH` текущего терминала:
+Cargo normally installs binaries into `~/.cargo/bin`. Add that directory to your current terminal's `PATH`:
 
 ```bash
 export PATH="$HOME/.cargo/bin:$PATH"
 ai-lead --version
 ```
 
-Для постоянной настройки добавь эту строку в файл конфигурации своей оболочки, например `~/.zshrc` или `~/.bashrc`, и открой новый терминал.
+To make this permanent, add the export to your shell configuration, such as `~/.zshrc` or `~/.bashrc`, and open a new terminal.
 
-### Запуск без установки
+### Running without installation
 
-Из папки исходников:
+From the source directory:
 
 ```bash
 cargo run
 ```
 
-Чтобы открыть другой проект:
+To open another project:
 
 ```bash
 cargo run -- --project /path/to/my-project
 ```
 
-### Обновление
+### Updating
 
-Если устанавливал из локального клона:
+If you installed from a local clone:
 
 ```bash
 cd /path/to/AI-lead
@@ -123,332 +123,332 @@ git pull --ff-only
 cargo install --path . --locked --force
 ```
 
-Или повтори установку из GitHub с `--force`:
+Alternatively, repeat the GitHub installation with `--force`:
 
 ```bash
 cargo install --git https://github.com/Dake69/AI-lead.git --branch main --locked --force
 ```
 
-Затем перезапусти AI-lead. Уже открытый процесс продолжает использовать прежнюю версию бинарника.
+Restart AI-lead afterward. An already running process keeps using the previous binary.
 
 <a id="first-run"></a>
-## Первый запуск
+## First run
 
-### 1. Открой папку, в которой агенты должны работать
+### 1. Open the directory where the agents should work
 
 ```bash
 cd /path/to/my-project
 ai-lead
 ```
 
-Либо укажи её явно:
+Or specify the directory explicitly:
 
 ```bash
 ai-lead --project /path/to/my-project
 ```
 
-**Проектом считается именно выбранная папка.** AI-lead не подменяет её папкой своих исходников или ближайшим родительским Git-репозиторием.
+**The selected directory is the project.** AI-lead does not replace it with its own source directory or the nearest parent Git repository.
 
-### 2. Настрой команду для этой папки
+### 2. Configure a team for that directory
 
-При первом запуске появится путь проекта и предложение его настроить:
+On the first launch, the interface shows the project path and offers to configure it:
 
-- **Enter** — создать `.ai-lead/` и открыть настройки команды.
-- **Esc** — выйти без создания файлов.
+- **Enter** creates `.ai-lead/` and opens team settings.
+- **Esc** exits without creating files.
 
-В настройках выбери провайдеров, модели, промпты и навыки. **Ctrl+S** сохраняет команду и открывает ввод задачи.
+Choose providers, models, prompts, and skills. **Ctrl+S** saves the team and opens the task input.
 
-Если закрыть первоначальные настройки до сохранения, приложение предложит закончить их при следующем запуске. Настройки разных папок независимы.
+If you close the initial setup before saving, the application offers to finish it on the next launch. Settings are independent between project directories.
 
-### 3. Выбери режим
+### 3. Choose an execution mode
 
-На стартовом экране **F2** переключает режим:
+On the launch screen, **F2** cycles through execution modes:
 
-| Режим | Что происходит |
+| Mode | Behavior |
 |---|---|
-| **Demo** | Симуляция заданий, отчётов и сообщений; без генерации и изменения кода |
-| **Live / read only** | Реальные модели изучают проект и готовят выводы без разрешения на изменение файлов |
-| **Live / Full access** | Реальная работа с широкими правами после отдельного подтверждения |
-| **Live / edit files** | Работа специалистов с записью в рамках Restricted |
+| **Demo** | Simulated assignments, reports, and messages; no inference or project code changes |
+| **Live / read only** | Real models inspect the project and produce findings without permission to edit files |
+| **Live / Full access** | Real execution with broad permissions after a separate confirmation |
+| **Live / edit files** | Specialists can write files under the Restricted policy |
 
-В новом проекте по умолчанию выбран Full access. Перед его первым использованием приложение объяснит права и попросит ввести **`ALLOW`**. До подтверждения агенты не запускаются.
+New projects default to Full access. Before its first use, the application explains the permissions and asks you to type **`ALLOW`**. Agents do not start before consent is given.
 
-Для первого знакомства переключись на **Demo**.
+Choose **Demo** to explore the interface first.
 
-### 4. Опиши результат, который нужен
+### 4. Describe the result you want
 
-Например:
+For example:
 
-> Сделай магазин электроники: каталог, поиск, фильтры, карточка товара, регистрация, вход и корзина. Стек выбери сам. Нужен адаптивный интерфейс, SQLite и инструкция запуска. Не публикуй приложение.
+> Build an electronics store with a catalog, search, filters, product pages, registration, sign-in, and a shopping cart. Choose the stack. Use a responsive interface and SQLite, and provide startup instructions. Do not publish the application.
 
-Можно указать конкретный стек, существующие ограничения, дизайн, критерии приёмки и то, что менять нельзя. Чем точнее ожидаемый результат, тем меньше неоднозначных решений придётся принимать команде.
+You can specify a stack, existing constraints, design requirements, acceptance criteria, and areas that must remain unchanged. A clear expected result reduces the number of ambiguous decisions the team needs to make.
 
-После **Enter** откроется экран логов. Лид получит задачу и начнёт координацию.
+Press **Enter** to open the logs dashboard. The lead receives the task and starts coordinating work.
 
-### Быстрое демо через командную строку
+### Quick command-line demo
 
-В ещё не настроенной папке сначала выполни `init`:
+In a directory that has not been configured yet, run `init` first:
 
 ```bash
 ai-lead init
-ai-lead run --demo "Создать приложение с авторизацией и личным кабинетом"
+ai-lead run --demo "Build an application with sign-in and a user dashboard"
 ```
 
-`init` сохраняет настройки в текущем проекте. Повторный `init` не перезаписывает существующую конфигурацию.
+`init` creates settings in the current project. Running it again does not overwrite an existing configuration.
 
 <a id="models"></a>
-## Выбор моделей и провайдеров
+## Choosing models and providers
 
-**Не нужно вручную вводить ID провайдера или модели.** В обычном интерфейсе выбираются названия из списков, а технические значения сохраняются автоматически.
+**You do not need to enter provider or model IDs manually.** The normal interface lets you choose readable names from lists and saves the technical values automatically.
 
-### Во время сессии
+### During a session
 
-1. Выбери агента через **Tab** или **↑↓**.
-2. Нажми **F2** — откроется его каталог моделей.
-3. Печатай название или часть описания для поиска.
-4. Выбери вариант стрелками и нажми **Enter**.
-5. Нажми **Ctrl+S**, чтобы сохранить выбор.
+1. Select an agent with **Tab** or **↑↓**.
+2. Press **F2** to open its model catalog.
+3. Type a name or part of a description to search.
+4. Select an option with the arrow keys and press **Enter**.
+5. Press **Ctrl+S** to save your choice.
 
-В каталоге **Tab** открывает список провайдеров. Выбери сервис по названию, затем модель из его каталога. **Ctrl+R** обновляет каталог, **Esc** закрывает список без применения нового выбора.
+Inside the model catalog, **Tab** opens the provider list. Choose a service by name, then choose a model from its catalog. **Ctrl+R** refreshes the catalog. **Esc** closes the list without applying a new choice.
 
-После выбора модели ты возвращаешься в редактор. **Alt+↑↓** переключает агентов, **Tab** — поля, **Enter** на Provider или Model снова открывает список. **Esc** возвращает к логам.
+Selecting a model returns you to the editor. **Alt+↑↓** switches agents, **Tab** switches fields, and **Enter** on Provider or Model reopens its list. **Esc** returns to the logs.
 
-**Сохранение применяется к следующим вызовам**, в том числе пока редактор ещё открыт. Уже выполняющийся запрос не перезапускается и продолжает использовать прежнюю модель.
+**Saved changes apply to subsequent calls**, even while the editor remains open. An in-flight request is not restarted and keeps using its original model.
 
-![Каталог моделей с поиском](docs/screenshots/desktop-models.png)
+![Searchable model catalog](docs/screenshots/desktop-models.png)
 
-### До начала работы
+### Before starting work
 
-На стартовом экране нажми **F3**. В редакторе перейди клавишей **Tab** к Provider или Model и нажми **Enter**.
+Press **F3** on the launch screen. In the editor, use **Tab** to reach Provider or Model, then press **Enter**.
 
-Отдельно открыть настройки можно командой:
+You can also open settings directly:
 
 ```bash
 ai-lead configure
 ```
 
-### Какие подключения есть
+### Available connections
 
-| Подключение | Как используется | Что подключить |
+| Connection | How it works | What to connect |
 |---|---|---|
-| **Codex CLI** | Запускается установленный Codex | Установить CLI и войти в аккаунт |
-| **Claude Code** | Запускается установленный Claude | Установить CLI и войти в аккаунт |
-| **OpenAI API** | Прямое API | `OPENAI_API_KEY` |
-| **Anthropic API** | Прямое API | `ANTHROPIC_API_KEY` |
-| **Gemini** | OpenAI-совместимый интерфейс Gemini | `GEMINI_API_KEY` |
-| **OpenRouter** | Единое API для разных моделей | `OPENROUTER_API_KEY` для генерации |
-| **DeepSeek** | Прямое API | `DEEPSEEK_API_KEY` |
-| **Groq** | Прямое API | `GROQ_API_KEY` |
-| **xAI** | Прямое API | `XAI_API_KEY` |
-| **Mistral** | Прямое API | `MISTRAL_API_KEY` |
-| **Custom API** | Совместимый локальный или собственный сервер | Адрес сервера и его способ авторизации |
+| **Codex CLI** | Runs the installed Codex CLI | Install the CLI and sign in |
+| **Claude Code** | Runs the installed Claude CLI | Install the CLI and sign in |
+| **OpenAI API** | Direct API | `OPENAI_API_KEY` |
+| **Anthropic API** | Direct API | `ANTHROPIC_API_KEY` |
+| **Gemini** | Gemini's OpenAI-compatible interface | `GEMINI_API_KEY` |
+| **OpenRouter** | One API for multiple model providers | `OPENROUTER_API_KEY` for inference |
+| **DeepSeek** | Direct API | `DEEPSEEK_API_KEY` |
+| **Groq** | Direct API | `GROQ_API_KEY` |
+| **xAI** | Direct API | `XAI_API_KEY` |
+| **Mistral** | Direct API | `MISTRAL_API_KEY` |
+| **Custom API** | A compatible local or custom server | Server address and its authentication method |
 
-Для встроенных API-пресетов стандартные адреса и имена переменных подставляются автоматически. Авторизация в CLI и API-ключ — разные способы подключения: наличие сессии Codex или Claude само по себе не настраивает прямое API другого сервиса.
+Built-in API presets provide default addresses and key variable names automatically. CLI authentication and API keys are separate connection methods: being signed into Codex or Claude does not configure another service's direct API.
 
-Пример подключения API в текущем терминале:
+Example API setup in your current terminal:
 
 ```bash
 export OPENAI_API_KEY="your-api-key"
 ai-lead
 ```
 
-Ключ задаётся в окружении, а не в поле модели, промпте или README. В настройках API хранится **имя переменной**, а не значение ключа.
+Set the key in the environment, not in a model field, prompt, or README. API settings store the **environment variable name**, not the secret value.
 
-В редакторе **F2** открывает параметры соединения: адрес, переменную ключа и лимиты. Удалённый API требует HTTPS; HTTP разрешён для localhost. Для собственного сервера нужны совместимый протокол и поддержка вызова инструментов.
+In the editor, **F2** opens connection parameters: address, key variable, and limits. Remote APIs require HTTPS; HTTP is allowed for localhost. Custom servers need a compatible protocol and tool-calling support.
 
-### Откуда берётся каталог
+### Where the catalog comes from
 
-- **Codex:** служебный запрос `model/list` к установленному CLI. Возвращаются названия, описания и уровни reasoning. Если живое обнаружение недоступно, возможен явно помеченный локальный кеш Codex.
-- **Claude Code:** список из служебного `initialize` stream-json протокола. Если его получить не удалось, интерфейс показывает явно помеченные стандартные CLI-алиасы, например Opus, Sonnet и Haiku.
-- **API:** каталог `/models` выбранного подключения. Если сервис возвращает названия и описания, они используются в интерфейсе. Для Anthropic поддерживается пагинация. OpenRouter может отдавать публичный каталог без ключа; для генерации ключ всё равно нужен.
+- **Codex:** a metadata-only `model/list` request to the installed CLI. It returns names, descriptions, and reasoning levels. If live discovery is unavailable, a clearly labeled local Codex cache may be used.
+- **Claude Code:** the model list from its stream-json `initialize` control response. If discovery fails, the interface shows clearly labeled standard CLI aliases such as Opus, Sonnet, and Haiku.
+- **API:** the selected connection's `/models` catalog. Provider-supplied names and descriptions are used when available. Anthropic pagination is supported. OpenRouter may provide a public catalog without a key; inference still requires one.
 
-Обнаружение моделей не отправляет пользовательскую задачу на генерацию. Большинству API для получения каталога требуется настроенный ключ. Если загрузка не удалась, интерфейс показывает причину и не меняет текущую модель.
+Model discovery does not submit the user's task for inference. Most APIs require a configured key to list models. If loading fails, the interface displays the reason and keeps the selected model unchanged.
 
-Явно скрытые, неактивные, retired-модели и модели с явно неподходящими возможностями исключаются. Наличие модели в каталоге не доказывает доступ к ней конкретного аккаунта, достаточную квоту или полную совместимость инструментов. Реальный вызов может вернуть ограничение провайдера.
+Explicitly hidden, inactive, retired, and clearly unsuitable models are excluded. A catalog entry does not prove account entitlement, sufficient quota, or complete tool compatibility. A real invocation may still encounter a provider restriction.
 
-### Reasoning и нестандартные модели
+### Reasoning and custom models
 
-На поле Reasoning нажми **Enter**. Для Codex / OpenAI интерфейс использует метаданные выбранной модели; когда они не сообщают доступные уровни, предлагается Automatic. Применимость параметра зависит от модели и провайдера.
+Press **Enter** on the Reasoning field. For Codex / OpenAI, the interface uses metadata for the selected model. If the catalog does not report available levels, Automatic is offered. Support depends on the model and provider.
 
-Для нестандартного сервера или модели, которой ещё нет в каталоге, оставлен дополнительный режим: **F4 на поле Model** включает ручной ID. Обычный сценарий настройки этого не требует.
+For a custom server or a model not yet present in the catalog, an additional mode is available: **F4 on the Model field** enables manual ID entry. Normal setup does not require it.
 
-Технические источники: [Codex App Server](https://learn.chatgpt.com/docs/app-server), [Claude Code: модели и алиасы](https://code.claude.com/docs/en/model-config), [Claude Agent SDK control protocol](https://github.com/anthropics/claude-agent-sdk-python/blob/main/src/claude_agent_sdk/_internal/query.py), [каталог Anthropic](https://platform.claude.com/docs/en/api/models/list), [каталог OpenRouter](https://openrouter.ai/docs/api/api-reference/models/list-all-models-and-their-properties).
+Technical references: [Codex App Server](https://learn.chatgpt.com/docs/app-server), [Claude Code models and aliases](https://code.claude.com/docs/en/model-config), [Claude Agent SDK control protocol](https://github.com/anthropics/claude-agent-sdk-python/blob/main/src/claude_agent_sdk/_internal/query.py), [Anthropic model catalog](https://platform.claude.com/docs/en/api/models/list), [OpenRouter model catalog](https://openrouter.ai/docs/api/api-reference/models/list-all-models-and-their-properties).
 
 <a id="roles"></a>
-## Кто за что отвечает
+## Agent roles
 
-По умолчанию создаются семь агентов. Лид управляет шестью специалистами.
+The default team has seven agents: one lead and six specialists.
 
-| Роль | Основная работа | Граница ответственности |
+| Role | Main responsibility | Responsibility boundary |
 |---|---|---|
-| **Lead** | Декомпозиция, делегирование, коммуникация, итоговое решение и финальный запуск проекта | Не пишет код, тесты и конфигурацию вместо специалистов |
-| **Architect** | Выбор недостающего стека, монолит или сервисы, модули, директории и контракты | Не берёт на себя реализацию пользовательских функций и тестов |
-| **Designer** | Визуальная система, UX, токены, стили и согласованные визуальные примитивы | Работает с frontend в своих файлах; не реализует серверную логику и тесты |
-| **Frontend** | Клиентский код, интерфейсы и web/mobile/desktop/terminal-приложения | Не пишет backend и тесты |
-| **Backend** | Серверный и доменный код, API, хранение данных, миграции | Не пишет frontend и тесты |
-| **Tester** | Написание тестов, фикстуры, тестовые инструменты; тесты, сборки и проверка интерфейса | Сообщает о дефекте владельцу production-кода, а не исправляет его сам |
-| **Reviewer** | Независимое чтение логики всех затронутых частей прямо во время разработки | Отправляет находки автору и лиду; не исправляет файлы и не заменяет тестировщика |
+| **Lead** | Task decomposition, delegation, communication, final decisions, and the final project launch | Does not write code, tests, or configuration on behalf of specialists |
+| **Architect** | Choosing an unspecified stack, monolith versus services, modules, directories, and contracts | Does not take over feature implementation or tests |
+| **Designer** | Visual system, UX, tokens, styles, and agreed visual primitives | Works with frontend in separate owned files; does not implement server logic or tests |
+| **Frontend** | Client code, interfaces, and web/mobile/desktop/terminal applications | Does not write backend code or tests |
+| **Backend** | Server and domain code, APIs, persistence, and migrations | Does not write frontend code or tests |
+| **Tester** | Test authoring, fixtures, test tooling, test execution, builds, and interface verification | Reports production defects to their owners instead of patching production code |
+| **Reviewer** | Independent logic review across affected areas while code is being written | Sends findings to authors and the lead; does not modify files or replace the tester |
 
-Тестировщик начинает писать проверки по контрактам **параллельно с реализацией**. Ревьювер начинает изучать доступный код и контракты **во время написания**, а затем проверяет последующие изменения и исправления. Ранний успешный проход не считается приёмкой более позднего кода.
+The tester starts writing contract-based checks **alongside implementation**. The reviewer starts inspecting available code and contracts **during development**, then reviews subsequent changes and fixes. An early passing check does not approve later code.
 
-Базовый промпт дизайнера включает разделение на блоки, секции и карточки, адаптивность, состояния интерфейса, доступность, осмысленное использование библиотек, 2–3 семейства шрифтов с фирменным и 2–3 основных размера. Для терминала учитываются ограничения шрифта самого терминала.
+The designer's base prompt covers blocks, sections, cards, responsiveness, interface states, accessibility, purposeful library use, two or three font families including a brand face, and two or three primary font sizes. Terminal interfaces account for the terminal's own font limitations.
 
-Архитектор ориентируется на читаемые модули и директории, явные границы, уместные паттерны и SOLID. Он учитывает язык: для Rust не навязываются искусственные иерархии классов и наследование.
+The architect focuses on readable modules and directories, explicit boundaries, suitable patterns, and SOLID. Language conventions matter: Rust projects are not forced into artificial class hierarchies or inheritance.
 
-В старых конфигурациях архитектор может оставаться под именем `devops`: это сохраняет связь с его прежней памятью.
+In older configurations, the architect may still be named `devops` to preserve continuity with its existing memory.
 
-Границы ролей передаются отдельной runtime-инструкцией. Диспетчер также отклоняет явные тестовые пути у других специалистов и непустое владение файлами у reviewer. Это кооперативные правила и проверки назначений; Full access не превращает их в техническую изоляцию каждого shell-действия.
+Role boundaries are included in a separate runtime instruction. The scheduler also rejects explicit test paths assigned to other specialists and nonempty file ownership assigned to the reviewer. These are cooperative rules and assignment checks; Full access does not make them an OS-level restriction on every shell action.
 
 <a id="workflow"></a>
-## Как выполняется задача
+## How a task runs
 
-1. **Лид получает цель.** Он изучает текущий контекст, уточняет недостающие технические решения через архитектора и согласует общий brief.
-2. **Появляются контракты и владельцы.** Команда получает интерфейсы API, границы модулей, общий UI-замысел, критерии результата и свои файлы.
-3. **Независимая работа стартует параллельно.** Backend, frontend, designer, tester и reviewer подключаются в одном плане, когда это позволяет задача. Реальные зависимости учитываются отдельно.
-4. **Специалисты передают промежуточные результаты.** Авторы сообщают, какие части уже можно проверить; reviewer отправляет находки, tester — воспроизводимые ошибки и результаты проверок.
-5. **Лид назначает исправления правильному владельцу.** После изменений тестировщик повторяет проверки, а ревьювер изучает актуальное состояние.
-6. **Выполняется итоговая приёмка.** Лид сопоставляет результат с критериями и пробует запустить проект по переданным инструкциям. Он сообщает фактический исход запуска и доступные действия пользователя.
+1. **The lead receives the goal.** It reads the current context, delegates missing technical decisions to the architect, and coordinates a shared brief.
+2. **The team gets contracts and ownership.** Agents receive API interfaces, module boundaries, a shared UI objective, acceptance criteria, and their assigned files.
+3. **Independent work starts in parallel.** Backend, frontend, designer, tester, and reviewer join the same plan when appropriate. Actual prerequisites are tracked separately.
+4. **Specialists share intermediate results.** Authors announce inspectable changes; the reviewer sends findings, and the tester sends reproducible failures and verification results.
+5. **The lead routes fixes to the right owners.** After changes, the tester reruns checks and the reviewer inspects the current implementation.
+6. **The team performs final acceptance.** The lead compares the result with the criteria and attempts to launch the project using the supplied instructions. It reports the actual startup outcome and the user's available next steps.
 
-### Параллельность и файлы
+### Parallelism and file ownership
 
-В новом проекте лимит — **6 специалистов одновременно**. В существующем сохраняется его настройка. Задания с независимыми путями могут идти параллельно, пересекающиеся записи выполняются последовательно.
+New projects allow **6 specialists at once** by default. Existing projects retain their configured limit. Assignments with independent paths can run concurrently; overlapping writes are serialized.
 
-Например:
+For example:
 
-| Специалист | Пример отдельной области |
+| Specialist | Example independent scope |
 |---|---|
 | Backend | `server/` |
 | Frontend | `web/pages/` |
 | Designer | `web/design/` |
 | Tester | `tests/` |
-| Reviewer | Чтение без владения файлами |
+| Reviewer | Read-only inspection, without file ownership |
 
-Это пример разделения, а не обязательная структура каждого проекта. В языках с тестами рядом с production-кодом нужны точные пути или отдельные этапы записи. Общие manifests, lockfiles и точки входа должны иметь одного автора на период изменения.
+This is an example split, not a required project structure. Languages with tests colocated next to production code need exact file ownership or separate write phases. Shared manifests, lockfiles, and entry points should have one author during a change.
 
-Лид описывает зависимости через `depends_on`, а владельцев — через `files`. Пустой `files: []` означает чтение; `null` или пропущенное поле старого назначения резервирует весь проект и ограничивает параллельность. Некорректный план отклоняется до запуска специалистов и возвращается лиду на исправление.
+The lead declares dependencies through `depends_on` and ownership through `files`. An empty `files: []` means read-only; `null` or an omitted field in a legacy assignment reserves the entire project and restricts concurrency. Invalid plans are rejected before specialists start and returned to the lead for repair.
 
-При лимите от 3 готовым заданиям tester/reviewer выделяются ранние слоты. При малом числе исполнителей нужны ограниченные проходы, которые не занимают всю очередь ожиданием ещё не запущенных задач.
+With a concurrency limit of at least 3, ready tester/reviewer assignments receive early slots. Small pools require bounded passes that do not occupy the whole queue while waiting for work that has not started.
 
-### Чем заканчивается работа
+### Completion states
 
-| Исход | Значение |
+| Outcome | Meaning |
 |---|---|
-| **Complete** | Лид объявил результат завершённым на основании полученных данных |
-| **Delivered / checks pending** | Реализация доставлена, но конкретные проверки или запуск ограничены средой |
-| **Blocked / Failed** | Осталась незавершённая работа, подтверждённый дефект или ошибка выполнения |
+| **Complete** | The lead declares the result complete based on the available evidence |
+| **Delivered / checks pending** | Implementation is delivered, but specific checks or startup are limited by the environment |
+| **Blocked / Failed** | Work remains unfinished, a defect is confirmed, or execution failed |
 
-`listen EPERM` или недоступный браузер не означают автоматически ни дефект, ни успешную проверку. Невыполненные проверки должны быть перечислены с причиной и следующим действием. Для такого исхода есть `finish_with_limits`; он не должен скрывать отсутствующие функции, подтверждённые дефекты или незакрытые ошибки специалистов.
+`listen EPERM` or an unavailable browser does not automatically prove either a defect or a successful check. Unexecuted checks must be listed with their causes and next steps. `finish_with_limits` represents this outcome; it must not hide missing features, confirmed defects, or unresolved specialist failures.
 
 <a id="interface"></a>
-## Управление интерфейсом
+## Terminal controls
 
-**Клавиши зависят от открытого экрана.** В частности, F2 на старте переключает режим, а в рабочем окне открывает модели.
+**Shortcuts depend on the current screen.** In particular, F2 changes the mode on the launch screen but opens models on the dashboard.
 
-На Mac для функциональных клавиш иногда требуется **Fn**, например **Fn+F2**.
+On a Mac, function keys may require **Fn**, for example **Fn+F2**.
 
-### Стартовый экран
+### Launch screen
 
-| Клавиша | Действие |
+| Key | Action |
 |---|---|
-| Enter | Запустить введённую задачу |
-| F2 | Переключить Demo / чтение / работу с записью |
-| F3 | Открыть настройки команды |
-| F4 | Продолжить последнюю незавершённую задачу выбранного режима |
-| F5 | Переключить Full access / Restricted |
-| Ctrl+U | Очистить описание задачи |
-| Esc | Выйти |
+| Enter | Start the entered task |
+| F2 | Switch between Demo, read-only, and writable execution |
+| F3 | Open team settings |
+| F4 | Resume the latest unfinished task in the selected mode |
+| F5 | Switch between Full access and Restricted |
+| Ctrl+U | Clear the task description |
+| Esc | Exit |
 
-### Экран логов
+### Logs dashboard
 
-| Клавиша | Действие |
+| Key | Action |
 |---|---|
-| Tab, Shift+Tab, ↑↓ | Выбрать агента |
-| Enter или a | Переключить сетку и увеличенный лог выбранного агента |
-| i или n | Написать сообщение лиду |
-| F2 или F3 | Открыть каталог моделей выбранного агента |
-| 1 / 2 / 3 / 4 | Логи / задания / профиль / память |
-| PgUp / PgDn | Прокрутить лог |
-| Home / End | Вернуться к текущим событиям |
-| p | Приостановить или продолжить отображение логов |
-| m | Переключить анимацию |
-| ? или F1 | Справка |
-| q, Esc, Ctrl+C | Остановить выполнение или выйти после завершения |
+| Tab, Shift+Tab, ↑↓ | Select an agent |
+| Enter or a | Switch between the grid and an expanded agent log |
+| i or n | Write a message to the lead |
+| F2 or F3 | Open the selected agent's model catalog |
+| 1 / 2 / 3 / 4 | Logs / tasks / profile / memory |
+| PgUp / PgDn | Scroll the log |
+| Home / End | Return to current events |
+| p | Pause or resume log display |
+| m | Toggle animation |
+| ? or F1 | Help |
+| q, Esc, Ctrl+C | Stop execution or exit after completion |
 
-**`p` приостанавливает только просмотр. Агенты продолжают работу.** То же относится к открытому редактору настроек: фоновые задания не останавливаются.
+**`p` pauses the display only. Agents keep working.** Opening settings also does not stop background assignments.
 
-Сетка сохраняет отдельный буфер каждого агента. У работающего агента видны индикатор, время задания и счётчик событий. Анимация показывает активность интерфейса и ожидание; она не является доказательством, что модель уже выполнила полезное действие.
+The grid maintains a separate buffer for each agent. Active agents show an indicator, task elapsed time, and event count. Animation reflects interface activity and waiting; it is not proof that a model has already completed useful work.
 
-### Каталог и редактор
+### Catalog and editor
 
-| Клавиша | Действие |
+| Key | Action |
 |---|---|
-| Печатный текст в каталоге | Поиск по названию и описанию |
-| ↑↓, PgUp / PgDn | Перемещение по списку |
-| Enter | Выбрать вариант |
-| Tab в каталоге моделей | Открыть провайдеров |
-| Ctrl+R в каталоге моделей | Обновить список |
-| Esc в каталоге | Вернуться без нового выбора |
-| Alt+↑↓ в редакторе | Переключить агента |
-| Tab / Shift+Tab в редакторе | Переключить поле |
-| F2 в редакторе | Настройки подключения API |
-| F3 в редакторе открытой сессии | Переключить модели и полные настройки ролей |
-| Ctrl+S | Сохранить команду |
-| Esc в редакторе | Вернуться, не сохраняя последующие несохранённые правки |
+| Typing in a catalog | Search names and descriptions |
+| ↑↓, PgUp / PgDn | Navigate the list |
+| Enter | Choose an option |
+| Tab in the model catalog | Open providers |
+| Ctrl+R in the model catalog | Refresh the list |
+| Esc in a catalog | Return without a new choice |
+| Alt+↑↓ in the editor | Switch agents |
+| Tab / Shift+Tab in the editor | Switch fields |
+| F2 in the editor | API connection settings |
+| F3 in the live-session editor | Switch between models and full role settings |
+| Ctrl+S | Save the team |
+| Esc in the editor | Return without saving subsequent unsaved edits |
 
 <a id="messages"></a>
-## Следующие сообщения лиду
+## Follow-up messages
 
-В рабочем окне нажми **i** и напиши, что нужно добавить или изменить:
+Press **i** on the dashboard and describe what to add or change:
 
-> Добавь поиск по каталогу и фильтр по цене. Не меняй существующую регистрацию.
+> Add catalog search and a price filter. Keep the existing registration flow unchanged.
 
-- **Enter** — отправить.
-- **Ctrl+J** — новая строка.
-- **Esc** — закрыть ввод, сохранив черновик в открытом интерфейсе.
-- Поддерживается вставка многострочного текста.
-- Максимум одного сообщения — **16 КиБ**. При ошибке сохранения черновик остаётся.
+- **Enter** sends the message.
+- **Ctrl+J** inserts a new line.
+- **Esc** closes the composer while keeping the draft in the open interface.
+- Multiline paste is supported.
+- Messages are limited to **16 KiB** each. If saving fails, the draft is retained.
 
-Пока открыт ввод, обычные буквы `q`, `p`, `m` являются текстом, а не командами управления логами.
+While composing, ordinary letters such as `q`, `p`, and `m` are text rather than dashboard commands.
 
-![Сообщение лиду](docs/screenshots/desktop-message.png)
+![Message composer](docs/screenshots/desktop-message.png)
 
-### Когда лид прочитает сообщение
+### When the lead reads the message
 
-Сообщение сохраняется в проекте и попадает к лиду при следующем планировании. Уже запущенные задания автоматически не отменяются.
+The message is saved in the project and reaches the lead at the next planning step. Assignments already running are not automatically cancelled.
 
-Если сообщение пришло, пока лид формировал ответ, устаревший план не должен запускать задания или завершать workflow: лид получает новый ввод и планирует повторно.
+If input arrives while the lead is generating an answer, the stale plan must not dispatch work or close the workflow. The lead receives the new input and plans again.
 
-После завершения задачи окно остаётся открытым. Можно отправить следующий промпт — работа продолжится в **том же workflow**, с его историей и памятью. На новый ввод выделяется дополнительный ограниченный бюджет раундов.
+The dashboard stays open after completion. Send another prompt to continue within **the same workflow**, including its history and memory. New input receives an additional bounded planning budget.
 
-Отправленные сообщения сохраняются между перезапусками. Черновик, который ещё не отправлен, хранится только в текущем интерфейсе.
+Sent messages survive restarts. An unsent draft exists only in the current interface.
 
 <a id="customization"></a>
-## Свои промпты и навыки
+## Custom prompts and skills
 
-Настройки доступны до запуска через **F3** или `ai-lead configure`. В открытой сессии **F2** открывает редактор моделей, а **F3 внутри редактора** — промпты и навыки.
+Before launch, open settings with **F3** or `ai-lead configure`. During a session, **F2** opens the model editor, and **F3 inside that editor** opens prompts and skills.
 
-### Базовый промпт агента
+### An agent's base prompt
 
-У каждого агента есть полный многострочный промпт. Его можно уточнить, например:
+Each agent has a full multiline prompt. You can customize it, for example:
 
-> Используй существующие компоненты проекта. Все пользовательские строки должны быть на русском. Не добавляй зависимости без сообщения лиду. Не меняй API-контракты без согласования.
+> Use the project's existing components. All user-facing text must be in English. Do not add dependencies without notifying the lead. Do not change API contracts without coordination.
 
-В текстовом поле:
+In a text field:
 
-- Enter добавляет строку;
-- Ctrl+U очищает поле;
-- поддерживается многострочная вставка;
-- Ctrl+S сохраняет настройки команды.
+- Enter inserts a new line;
+- Ctrl+U clears the field;
+- multiline paste is supported;
+- Ctrl+S saves team settings.
 
-Пользовательские версии промптов сохраняются отдельно в `custom-contexts/`. Обновление известных стандартных шаблонов не должно перезаписывать изменённый пользовательский текст.
+User-authored prompt versions are stored separately in `custom-contexts/`. Updating known default templates should not overwrite customized user text.
 
-Промпт и навыки уточняют работу роли. Они не передают фронтендеру обязанность писать тесты или ревьюверу — исправлять production-код.
+Prompts and skills refine a role's work. They do not transfer test authoring to frontend or production fixes to the reviewer.
 
-### Собственные skills
+### Your own skills
 
-Навык — файл инструкций. Можно прикрепить обычный Markdown-файл или папку с `SKILL.md`.
+A skill is an instruction file. Attach an ordinary Markdown file or a directory containing `SKILL.md`.
 
-Пример структуры:
+Example structure:
 
 ```text
 .ai-lead/
@@ -458,18 +458,18 @@ ai-lead
       SKILL.md
 ```
 
-Пример содержимого `SKILL.md`:
+Example `SKILL.md`:
 
 ```markdown
 # UI rules
 
-- Используй существующие дизайн-токены проекта.
-- Согласуй визуальные примитивы с дизайнером.
-- Передавай тестировщику критерии адаптивности и состояния форм.
-- После значимого изменения отправляй ревьюверу пути готовых компонентов.
+- Use the project's existing design tokens.
+- Coordinate visual primitives with the designer.
+- Give the tester responsive-layout criteria and form states.
+- Send inspectable component paths to the reviewer after meaningful changes.
 ```
 
-В поле **Skills** укажи пути, по одному на строку:
+In **Skills**, enter one path per line:
 
 ```text
 skills/frontend.md
@@ -477,50 +477,50 @@ skills/my-ui-rules
 /absolute/path/to/another/SKILL.md
 ```
 
-Относительные пути считаются от папки `team.toml`, обычно `.ai-lead/`. Поддерживается `~/...`. Для папки автоматически выбирается её `SKILL.md`.
+Relative paths are resolved from the directory containing `team.toml`, usually `.ai-lead/`. `~/...` is supported. For a directory, its `SKILL.md` is selected automatically.
 
-Приложение добавляет в промпт управляемый список прикреплённых навыков и инструкцию прочитать их, использовать для соответствующей части задачи и сообщить о невозможности применения. Удалённые навыки исчезают из списка; блок не должен дублироваться.
+The application adds a managed list of attached skills to the prompt, instructing the agent to read them, apply them to relevant work, and explain any inability to use them. Removed skills disappear from the list; the block should not be duplicated.
 
-Содержимое основных файлов навыков передаётся агенту. Дополнительные ресурсы, на которые ссылается навык, должны быть доступны его инструментам. Зависимости навыков автоматически не устанавливаются.
+The main skill files are supplied to the agent. Additional resources referenced by a skill must be accessible through its tools. Skill dependencies are not installed automatically.
 
 <a id="memory"></a>
-## Память и продолжение работы
+## Memory and resuming work
 
-AI-lead хранит в проекте:
+AI-lead stores the following in the project:
 
-- общие заметки и согласованные решения;
-- отдельную карту каждого агента: факты, предыдущую работу, следующие шаги и блокеры;
-- задания и их состояния;
-- решения лида, отчёты, сообщения и позиции доставки;
-- контрольные точки для продолжения после остановки.
+- shared notes and agreed decisions;
+- an individual map for each agent: facts, previous work, next steps, and blockers;
+- assignments and their states;
+- lead decisions, reports, messages, and delivery offsets;
+- checkpoints for continuing after an interruption.
 
-Перед вызовом агент получает свою карту, общую память и краткие сведения о коллегах. Это сохранённый текстовый контекст, а не обещание бесконечной памяти модели.
+Before invocation, an agent receives its own map, shared memory, and concise information about teammates. This is persisted textual context, not a promise of unlimited model memory.
 
-### Продолжить последнюю задачу
+### Resume the latest task
 
 ```bash
 ai-lead resume
 ```
 
-Для Demo:
+For Demo:
 
 ```bash
 ai-lead resume --demo
 ```
 
-Можно указать ID конкретного workflow:
+You can specify a workflow ID:
 
 ```bash
 ai-lead resume WORKFLOW_ID
 ```
 
-На стартовом экране ту же задачу выполняет **F4** для выбранного режима. Реальная память и память Demo разделены.
+On the launch screen, **F4** performs the same action for the selected mode. Live and Demo memory are separate.
 
-Подтверждённые завершённые задания не должны запускаться повторно из-за другого порядка завершения параллельных агентов. Прерванное задание могло уже частично изменить файлы: перед повтором агент должен проверить фактическое состояние. Восстановление не продолжает произвольную shell-команду с точной остановленной инструкции.
+Acknowledged completed assignments should not repeat merely because parallel agents finished in a different order. An interrupted assignment may already have partially changed files: the agent must inspect the actual state before repeating it. Recovery does not resume an arbitrary shell command at its exact interrupted instruction.
 
-Новый отправленный ввод может сделать доступным продолжение даже ранее завершённого workflow. Обычная новая задача получает накопленную память проекта, но не означает автоматического повторения всех старых незавершённых работ.
+New sent input can make continuation available even for a previously completed workflow. A new task receives the project's accumulated memory, but does not automatically repeat every old unfinished assignment.
 
-### Посмотреть память
+### Inspect memory
 
 ```bash
 ai-lead memory
@@ -528,218 +528,218 @@ ai-lead memory backend
 ai-lead memory --demo
 ```
 
-Не редактируй служебное состояние во время работы приложения. Для изменения направления задачи отправь сообщение лиду.
+Do not edit runtime state while the application is working. Send a message to the lead to change direction.
 
 <a id="permissions"></a>
-## Разрешения и Full access
+## Permissions and Full access
 
 ### Full access
 
-Политика нового проекта по умолчанию — Full access. Перед реальным выполнением нужно явное согласие пользователя для выбранной папки.
+New projects default to the Full access policy. Real execution requires explicit user consent for the selected directory.
 
-В этом режиме **все агенты, включая лида**, получают доступные shell-, файловые и сетевые возможности с правами текущего пользователя ОС. В зависимости от инструментов они могут работать и за пределами папки проекта. Это не выдаёт root/admin-права и не отменяет ограничения ОС или провайдера.
+In this mode, **all agents, including the lead**, receive available shell, file, and network capabilities under the current OS user. Depending on their tools, they can operate outside the project directory. This does not grant root/admin privileges or bypass OS and provider restrictions.
 
-Согласие хранится локально для конкретного пути проекта. Настройка в TOML сама по себе не заменяет подтверждение.
+Consent is stored locally for a specific project path. A TOML setting alone does not replace confirmation.
 
-Проверить режим:
+Inspect the mode:
 
 ```bash
 ai-lead permissions
 ```
 
-Переключиться на Restricted и отозвать согласие:
+Switch to Restricted and revoke consent:
 
 ```bash
 ai-lead permissions restricted
 ```
 
-Включить с подтверждением:
+Enable Full access with confirmation:
 
 ```bash
 ai-lead permissions full-access
 ```
 
-Для собственного заранее авторизованного неинтерактивного сценария доступен явный флаг:
+An explicit flag is available for your own preauthorized noninteractive workflow:
 
 ```bash
 ai-lead permissions full-access --yes
 ```
 
-Изменение политики действует на следующие запуски. Для смены режима сначала останови текущую сессию. На стартовом экране есть **F5**.
+Policy changes apply to subsequent runs. Stop the active session before switching modes. The launch screen also provides **F5**.
 
-### Restricted и чтение
+### Restricted and read-only execution
 
 ```bash
-# Явно оставить команду на чтение:
-ai-lead run --read-only "Изучи проект и предложи план"
+# Explicitly keep the team read-only:
+ai-lead run --read-only "Inspect the project and propose a plan"
 
-# Restricted с разрешением на запись специалистам:
+# Allow specialists to write under the Restricted policy:
 ai-lead permissions restricted
-ai-lead run --write "Реализуй согласованное изменение"
+ai-lead run --write "Implement the agreed change"
 ```
 
-В Restricted лид работает на чтение. Прямой API не получает shell-инструмент; его файловые инструменты ограничены проектом и блокируют, в частности, `.git`, `.ai-lead`, `.env` и симлинки. Возможности CLI также зависят от собственного режима ограничений и конфигурации установленного агента.
+Under Restricted, the lead is read-only. Direct API agents do not receive the shell tool; their file tools are confined to the project and block paths such as `.git`, `.ai-lead`, `.env`, and symlinks. CLI capabilities also depend on the installed agent's own restrictions and configuration.
 
-### Ключи, память и Git
+### Keys, memory, and Git
 
-AI-lead не записывает значение API-ключа в поле модели или конфигурацию автоматически. Однако в Full access команды наследуют окружение, а их вывод может попасть в журналы. Не проси агента печатать секреты.
+AI-lead does not automatically write API key values into model fields or configuration. However, commands inherit the environment in Full access, and their output may appear in logs. Do not ask agents to print secrets.
 
-Журналы и память содержат описания задач, содержимое контекста и ответы агентов. Перед публикацией проверяй, какие файлы отправляются в Git. Сгенерированный `.ai-lead/.gitignore` исключает runtime-память, сессии и согласие. Конфигурацию и свои навыки следует публиковать только после отдельной проверки содержимого.
+Logs and memory contain task descriptions, context, and agent responses. Check which files are staged before publishing. The generated `.ai-lead/.gitignore` excludes runtime memory, sessions, and consent. Publish configuration and custom skills only after reviewing their contents separately.
 
-В репозитории самого AI-lead локальная `.ai-lead/` полностью исключена из публикации.
+In AI-lead's own repository, the local `.ai-lead/` directory is excluded entirely.
 
 <a id="commands"></a>
-## Команды CLI
+## CLI commands
 
-| Команда | Назначение |
+| Command | Purpose |
 |---|---|
-| `ai-lead` | Открыть интерактивный интерфейс текущего проекта |
-| `ai-lead --project PATH` | Открыть явно выбранный проект |
-| `ai-lead init` | Создать конфигурацию и шаблоны команды |
-| `ai-lead configure` | Открыть редактор агентов |
-| `ai-lead run "Задача"` | Запустить реальную задачу с политикой проекта |
-| `ai-lead run --demo "Задача"` | Выполнить демонстрационную сессию |
-| `ai-lead run --read-only "Задача"` | Явно запретить изменение файлов |
-| `ai-lead run --write "Задача"` | Разрешить запись в соответствии с политикой проекта |
-| `ai-lead run --no-tui "Задача"` | Использовать текстовый журнал вместо полноэкранного окна |
-| `ai-lead resume` | Продолжить незавершённый workflow |
-| `ai-lead memory [AGENT]` | Посмотреть сохранённую память |
-| `ai-lead doctor` | Проверить конфигурацию и доступность подключений |
-| `ai-lead providers` | Напечатать пресеты подключений |
-| `ai-lead models AGENT` | Напечатать технический список моделей API-подключения агента |
-| `ai-lead permissions` | Посмотреть политику доступа |
-| `ai-lead upgrade-prompts` | Обновить известные неизменённые стандартные шаблоны |
-| `ai-lead replay PATH` | Прочитать сохранённый `events.jsonl` без выполнения агентов |
-| `ai-lead --help` | Полная справка |
+| `ai-lead` | Open the current project's interactive interface |
+| `ai-lead --project PATH` | Open an explicitly selected project |
+| `ai-lead init` | Create configuration and team templates |
+| `ai-lead configure` | Open the agent editor |
+| `ai-lead run "Task"` | Run a live task using the project's policy |
+| `ai-lead run --demo "Task"` | Run a demo session |
+| `ai-lead run --read-only "Task"` | Explicitly prohibit file changes |
+| `ai-lead run --write "Task"` | Allow writes according to project policy |
+| `ai-lead run --no-tui "Task"` | Use a text log instead of the full-screen dashboard |
+| `ai-lead resume` | Resume an unfinished workflow |
+| `ai-lead memory [AGENT]` | Inspect persisted memory |
+| `ai-lead doctor` | Validate configuration and connection prerequisites |
+| `ai-lead providers` | Print connection presets |
+| `ai-lead models AGENT` | Print the technical model list for an agent's API connection |
+| `ai-lead permissions` | Inspect the access policy |
+| `ai-lead upgrade-prompts` | Update recognized, unchanged default templates |
+| `ai-lead replay PATH` | Read a saved `events.jsonl` without executing agents |
+| `ai-lead --help` | Full command reference |
 
-При перенаправлении вывода используется текстовый режим. Для реального Full access без интерактивного терминала требуется заранее сохранённое явное согласие.
+Redirected output uses text mode. Noninteractive live Full access requires previously saved explicit consent.
 
-`doctor` проверяет конфигурацию, контексты, навыки, исполняемые файлы CLI и наличие нужных переменных API. Он не доказывает доступ к каждой модели и не выполняет полный рабочий сценарий.
+`doctor` checks configuration, contexts, skills, CLI executables, and required API environment variables. It does not prove access to every model or run the full application workflow.
 
-Команда `models` предназначена для технической диагностики API. В обычном интерфейсе модели Codex, Claude и API выбираются через каталог, без копирования ID.
+The `models` command is intended for API diagnostics. In the normal interface, Codex, Claude, and API models are selected through the catalog without copying IDs.
 
-`init --provider claude` создаёт команду с Claude Code. Для API-инициализации через аргументы CLI нужны технические параметры, включая модель. Если не хочешь вводить их вручную, используй обычный интерактивный запуск и выбор в редакторе.
+`init --provider claude` creates a Claude Code team. API initialization through CLI arguments requires technical parameters, including a model. If you do not want to enter them manually, use the normal interactive launch and editor instead.
 
 <a id="configuration"></a>
-## Настройки и файлы проекта
+## Configuration and project files
 
-Основная конфигурация: **`.ai-lead/team.toml`**. Для обычной работы достаточно редактора интерфейса.
+The main configuration is **`.ai-lead/team.toml`**. The interface editor is sufficient for normal use.
 
-### Общие параметры
+### General settings
 
-| Параметр | По умолчанию | Значение |
+| Setting | Default | Meaning |
 |---|---|---|
-| `max_parallel_agents` | `6` | Максимум параллельных специалистов, от 1 до 16 |
-| `max_rounds` | `12` | Бюджет раундов планирования; новый пользовательский ввод расширяет его ограниченным числом раундов |
-| `timeout_seconds` | `900` | Общий лимит отдельного вызова агента, в секундах |
-| `log_buffer_events` | `2000` | Размер буфера событий каждого агента; от 100 до 20000 |
-| `permissions` | `"full-access"` | Политика доступа проекта; для выполнения всё равно требуется согласие |
-| `setup_pending` | Зависит от способа запуска | Нужно ли закончить первоначальную настройку |
+| `max_parallel_agents` | `6` | Maximum concurrent specialists, from 1 to 16 |
+| `max_rounds` | `12` | Planning budget; new user input extends it by a bounded number of rounds |
+| `timeout_seconds` | `900` | Total timeout for an individual agent invocation, in seconds |
+| `log_buffer_events` | `2000` | Per-agent event buffer, from 100 to 20000 |
+| `permissions` | `"full-access"` | Project policy; execution still requires consent |
+| `setup_pending` | Depends on the launch method | Whether initial setup must be completed |
 
-Это имена полей существующего файла, а не полный TOML, которым нужно заменять конфигурацию. Все стандартные роли и пути создаются приложением.
+These are fields in the existing file, not a complete TOML configuration to replace it with. The application creates all default roles and paths.
 
-### Параметры агента
+### Agent settings
 
-У каждого агента есть подключение, модель, reasoning, путь контекста и список skills. Для API дополнительно доступны адрес, имя переменной ключа, лимит выходных токенов и число HTTP-ходов. Для CLI есть `extra_args`.
+Each agent has a connection, model, reasoning level, context path, and skill list. API connections also expose a base URL, key environment variable name, output token limit, and HTTP-turn limit. CLI connections support `extra_args`.
 
-Имена провайдеров и модели записываются в TOML автоматически после выбора в интерфейсе. Пути контекстов и навыков считаются от папки конфигурации; абсолютные пути также допустимы.
+Provider identifiers and models are written to TOML automatically after selection in the interface. Context and skill paths are relative to the configuration directory; absolute paths are also supported.
 
-Можно создавать собственные роли через конфигурацию и контексты. Автоматические границы встроенных ролей и часть маршрутизации опираются на стандартные имена: для сохранения этих правил лучше не переименовывать встроенные роли без необходимости.
+You can define custom roles through configuration and contexts. Automatic boundaries for built-in roles and some routing behavior depend on their standard names. Keep built-in names unless you need to change them and understand the effect on those rules.
 
-### Структура локальных файлов
+### Local file structure
 
 ```text
 my-project/
   .ai-lead/
-    team.toml                 настройки команды
-    contexts/                 стандартные контексты ролей
-    custom-contexts/          сохранённые пользовательские промпты
-    skills/                   навыки ролей
-    permissions.json          локальное согласие на Full access
-    run.lock                  блокировка активной сессии проекта
+    team.toml                 team settings
+    contexts/                 default role contexts
+    custom-contexts/          saved custom prompts
+    skills/                   role skills
+    permissions.json          local Full access consent
+    run.lock                  active project session lock
     memory/
-      state.json              workflow и контрольные точки
-      agents/                 личные карты агентов
-    demo-memory/              отдельная память Demo
+      state.json              workflows and checkpoints
+      agents/                 individual agent maps
+    demo-memory/              separate Demo memory
     runs/
       SESSION_ID/
-        session.json          исходные параметры запуска
-        status.json           статус при закрытии интерфейса
-        events.jsonl          журнал событий
-        transcript.json       решения и отчёты
+        session.json          initial run parameters
+        status.json           status when the interface closes
+        events.jsonl          event log
+        transcript.json       decisions and reports
         team/
-          brief.md            общий brief текущего плана
-          progress.json       состояния заданий текущего раунда
-          user.jsonl          отправленные сообщения пользователя
-          inbox/              входящие сообщения агентов
-          outbox/             живые сообщения агентов
-        001-lead/             артефакты отдельного вызова
-          prompt.txt          переданный контекст
-          result.json         полученный результат
+          brief.md            shared brief for the current plan
+          progress.json       assignment states for the current round
+          user.jsonl          sent user messages
+          inbox/              agent inboxes
+          outbox/             live agent messages
+        001-lead/             individual invocation artifacts
+          prompt.txt          supplied context
+          result.json         returned result
 ```
 
-Состав папки вызова зависит от провайдера. `session.json` хранит исходную конфигурацию: поздние изменения моделей сохраняются в `team.toml` и отражаются в последующих вызовах.
+Invocation artifacts vary by provider. `session.json` records the initial configuration; later model changes are saved in `team.toml` and reflected in subsequent calls.
 
-Одновременно писать служебную память одного проекта должен один координатор. Если папка занята другой сессией AI-lead, новая сессия не должна обходить блокировку.
+Only one coordinator should write a project's runtime memory at a time. If another AI-lead session holds the project lock, a new session must not bypass it.
 
 <a id="troubleshooting"></a>
-## Частые вопросы и ошибки
+## Troubleshooting
 
-### «Я не вижу, где написать следующий промпт»
+### I cannot find where to send the next prompt
 
-На экране логов нажми **i**. Сообщение можно отправить во время работы и после завершения. Если F2 или поле сообщения не появились после обновления, закрой старый процесс и запусти установленную новую версию.
+Press **i** on the logs dashboard. You can send a message during execution or after completion. If the model shortcut or composer is missing after an update, close the old process and launch the newly installed version.
 
-### «Я не знаю ID модели»
+### I do not know the model ID
 
-Он не нужен. Выбери агента и нажми **F2**, найди модель по названию и подтверди Enter. В самом каталоге Tab открывает провайдеров. Ctrl+S сохраняет выбор.
+You do not need it. Select an agent, press **F2**, search by name, and confirm with Enter. Tab inside the catalog opens providers. Ctrl+S saves your choice.
 
-### «Каталог не загрузился»
+### The catalog did not load
 
-Проверь:
+Check the following:
 
-1. Для CLI — установлен ли нужный агент и выполнен ли вход в аккаунт.
-2. Для API — задана ли переменная ключа **в том терминале, из которого запущен AI-lead**.
-3. Для Custom API — правильный ли адрес и доступен ли сервер.
-4. Доступны ли сеть и служебный endpoint каталога.
+1. For a CLI connection, make sure the agent is installed and signed in.
+2. For an API connection, set the key environment variable **in the terminal used to launch AI-lead**.
+3. For Custom API, check the address and confirm the server is running.
+4. Check network access and availability of the provider's catalog endpoint.
 
-После исправления нажми Ctrl+R. Кеш Codex или стандартные алиасы Claude помечаются в интерфейсе отдельно; они не подтверждают доступ конкретного аккаунта.
+After fixing the issue, press Ctrl+R. A Codex cache or standard Claude aliases are labeled separately; neither proves entitlement for the current account.
 
-### «Смена модели ничего не изменила»
+### Changing the model had no effect
 
-Нажми Ctrl+S. Сохранённая настройка действует на следующие вызовы, а не меняет уже запущенный запрос. Для API отдельно проверь права ключа и поддержку выбранной модели.
+Press Ctrl+S. Saved settings affect subsequent calls, not an already running request. For API connections, also check the key's permissions and support for the chosen model.
 
-### «F2 меняет режим, а не открывает модели»
+### F2 changes the mode instead of opening models
 
-Ты на стартовом экране. Здесь F2 выбирает режим, F3 открывает команду. На экране работающей сессии F2 открывает модели. На Mac попробуй Fn+F2.
+You are on the launch screen. F2 selects the execution mode there, and F3 opens team settings. On the session dashboard, F2 opens models. On a Mac, try Fn+F2.
 
-### «Full access не дал запустить сервер: listen EPERM»
+### Full access still cannot start the server: listen EPERM
 
-Full access не отменяет системные ограничения. Агент должен назвать неисполненную проверку и её причину. Если реализация доставлена, но окружение не позволяет проверить сервер или браузер, результат может быть отмечен как «checks pending». Это не означает, что HTTP, cookie или адаптивность уже проверены.
+Full access does not override system restrictions. The agent should identify the unexecuted check and its cause. If implementation is delivered but the environment prevents server or browser verification, the result may be marked as checks pending. That does not mean HTTP behavior, cookies, or responsiveness have been verified.
 
-### «Браузерная проверка недоступна»
+### Browser verification is unavailable
 
-AI-lead не устанавливает браузерный мост автоматически. Тестировщик использует инструменты, доступные его CLI, или разрешённые средства запуска браузерных тестов. При отсутствии таких инструментов визуальная проверка должна остаться явно непроведённой.
+AI-lead does not install a browser bridge automatically. The tester uses tools available through its CLI or authorized browser-test tooling. If those tools are unavailable, visual verification must remain explicitly unperformed.
 
-### «В конце проект не остался запущенным»
+### The project did not stay running at the end
 
-Дочерние процессы инструментов очищаются после выполнения, отмены и таймаутов. Обычный фоновый `&` не гарантирует, что сервер переживёт завершение вызова агента. Лид должен сообщить реальный исход запуска; для постоянного процесса нужен подходящий механизм окружения либо отдельный запуск пользователем по инструкции проекта.
+Tool subprocesses are cleaned up after execution, cancellation, and timeouts. An ordinary background `&` does not guarantee that a server survives the agent invocation. The lead must report the actual startup outcome. A persistent process needs a suitable mechanism provided by the environment, or a separate user launch following the project's instructions.
 
-### «Почему тестировщик или ревьювер ждёт?»
+### Why is the tester or reviewer waiting?
 
-Проверь лимит параллельности, зависимости и пересекающиеся пути. Если backend владеет всем `src/`, а тестировщику назначены файлы внутри `src/`, это конфликт записи. Нужны более точные владельцы, отдельные тестовые пути или последовательные этапы.
+Check the parallel limit, dependencies, and overlapping paths. If backend owns all of `src/` while the tester is assigned files inside `src/`, their writes conflict. Use narrower ownership, separate test paths, or sequential phases.
 
-### «Появилась ошибка авторизации, квоты или таймаута»
+### Authentication, quota, or timeout errors
 
-Ошибки провайдера не считаются успешным выполнением. Исправь подключение, доступ к модели или лимиты и используй `resume`. Повторный запуск не отменяет уже выполненные внешние действия: частичные изменения и миграции нужно проверить.
+Provider errors are not treated as successful execution. Fix the connection, model access, or limits, then use `resume`. Retrying does not undo external actions already performed: inspect partial changes and migrations first.
 
-### «Как остановить работу?»
+### How do I stop work?
 
-Нажми q или Ctrl+C на экране логов. Уже сделанные изменения сохраняются. Обычная остановка сообщает о сохранённой сессии и не должна выглядеть как `Error: Run cancelled`.
+Press q or Ctrl+C on the logs dashboard. Changes already made are preserved. Normal cancellation reports the saved session and should not appear as `Error: Run cancelled`.
 
-Принудительный `kill -9` только процесса AI-lead может оставить внешние процессы; перед продолжением нужно проверить их отдельно.
+A forced `kill -9` of only the AI-lead process may leave external processes behind. Inspect them before resuming.
 
 <a id="development"></a>
-## Разработка и проверка
+## Development and verification
 
 ```bash
 cargo fmt --check
@@ -750,40 +750,40 @@ python3 tests/terminal_flow.py
 python3 tests/session_controls.py
 ```
 
-Для Python-сценариев нужен POSIX и Python 3.11+. Они используют настоящий PTY и локальные заглушки провайдеров. Автоматические тесты не требуют пользовательских API-ключей и не обращаются к платной генерации.
+The Python scenarios require POSIX and Python 3.11+. They use a real PTY and local provider doubles. Automated tests do not require user API keys or contact paid inference endpoints.
 
-Проверяются конфигурация и её сохранение, каталоги моделей, CLI handshakes Codex/Claude, API-протоколы, инструменты, права, параллельность, зависимости, живые сообщения, роли, восстановление, отмена процессов, рендер интерфейса и сценарии ввода через терминал.
+Coverage includes configuration and persistence, model catalogs, Codex/Claude CLI handshakes, API protocols, tools, permissions, concurrency, dependencies, live messaging, roles, recovery, process cancellation, terminal rendering, and interactive input flows.
 
-В GitHub Actions настроены проверки на Linux и macOS.
+GitHub Actions is configured to run checks on Linux and macOS.
 
-### Основные части исходников
+### Source layout
 
-| Файл или папка | За что отвечает |
+| File or directory | Responsibility |
 |---|---|
-| `src/main.rs` | Команды CLI и цикл интерфейса сессии |
-| `src/ui.rs` | Экран логов, навигация, ввод сообщения |
-| `src/setup.rs` | Редактор команды, промптов и подключений |
-| `src/picker.rs` | Списки провайдеров, моделей и reasoning с поиском |
-| `src/catalog.rs` | Обнаружение моделей CLI и обработка метаданных |
-| `src/engine.rs` | Цикл решений лида и завершение workflow |
-| `src/scheduler.rs` | Параллельные задания, зависимости и контрольные точки |
-| `src/provider.rs` | Запуск Codex CLI и Claude Code |
-| `src/api.rs`, `src/api_tools.rs`, `src/shell.rs` | Прямые API и доступные им инструменты |
-| `src/control.rs`, `src/team.rs` | Ввод пользователя и коммуникация команды |
-| `src/memory.rs` | Постоянная память и восстановление |
-| `src/config.rs`, `src/permissions.rs` | Конфигурация и согласие на доступ |
-| `src/prompts/` | Базовые промпты и известные прежние шаблоны для миграции |
-| `tests/` | Интеграционные и терминальные сценарии |
+| `src/main.rs` | CLI commands and the session interface loop |
+| `src/ui.rs` | Logs dashboard, navigation, and message composer |
+| `src/setup.rs` | Team, prompt, and connection editor |
+| `src/picker.rs` | Searchable provider, model, and reasoning lists |
+| `src/catalog.rs` | CLI model discovery and metadata handling |
+| `src/engine.rs` | Lead decision loop and workflow completion |
+| `src/scheduler.rs` | Concurrent assignments, dependencies, and checkpoints |
+| `src/provider.rs` | Codex CLI and Claude Code invocation |
+| `src/api.rs`, `src/api_tools.rs`, `src/shell.rs` | Direct APIs and their tools |
+| `src/control.rs`, `src/team.rs` | User input and team communication |
+| `src/memory.rs` | Persistent memory and recovery |
+| `src/config.rs`, `src/permissions.rs` | Configuration and access consent |
+| `src/prompts/` | Base prompts and recognized older templates for migration |
+| `tests/` | Integration and terminal scenarios |
 
 <a id="limitations"></a>
-## Текущие ограничения
+## Current limitations
 
-- Агенты работают в общей папке. Отдельных Git worktree и технической изоляции файлов каждого исполнителя пока нет.
-- Роли задаются промптами и проверками назначений. Full access даёт инструменты с широкими возможностями; он не гарантирует автоматическое соблюдение каждой границы на уровне ОС.
-- Новое сообщение пользователя доставляется на следующем планировании, а не мгновенно отменяет текущие задания.
-- API-агент получает обновления между HTTP-ходами. CLI-агенту передаются файлы inbox и инструкции их проверять; фактическое чтение зависит от поведения модели.
-- Каталог не является гарантией тарифа, квоты, доступа или поддержки всех инструментов. На пользовательских аккаунтах нельзя подтвердить всё без реальных вызовов.
-- Браузер, внешние сервисы, публикация и постоянный запуск сервера зависят от инструментов и окружения. Выполненные и невыполненные проверки должны различаться в отчёте.
-- На Unix завершаются process groups вызовов. На Windows полная остановка дерева дочерних инструментов пока не гарантируется.
-- Старые журналы, в которых ещё нет контрольных точек, не превращаются автоматически в возобновляемую сессию; их можно читать через `replay`.
-- Встроенного точного учёта стоимости, токенов и общего денежного бюджета пока нет. Реальные вызовы используют лимиты и тарификацию выбранных сервисов.
+- Agents share one working directory. Separate Git worktrees and technical per-agent file isolation are not implemented yet.
+- Roles are defined through prompts and assignment validation. Full access provides broad tool capabilities; it does not guarantee OS-level enforcement of every responsibility boundary.
+- New user messages are handled at the next planning step rather than immediately cancelling current assignments.
+- API agents receive updates between HTTP turns. CLI agents receive inbox paths and instructions to check them; actual reading depends on model behavior.
+- A catalog does not guarantee pricing, quota, access, or support for every tool. Account-specific behavior cannot be fully confirmed without real invocations.
+- Browser access, external services, publishing, and persistent server startup depend on available tools and the environment. Reports must distinguish completed checks from unperformed checks.
+- Unix invocation process groups are terminated during cleanup. Full descendant-process cleanup is not guaranteed on Windows yet.
+- Older logs without checkpoints do not automatically become resumable sessions; use `replay` to inspect them.
+- Built-in exact cost tracking, token accounting, and a shared monetary budget are not implemented yet. Live calls use the limits and billing of the selected services.
